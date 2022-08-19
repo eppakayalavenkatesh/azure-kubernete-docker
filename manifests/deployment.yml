@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "myfirstkubcluster-2d83"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "myfirstkubcluster-2d83"
+  template:
+    metadata:
+      labels:
+        app: "myfirstkubcluster-2d83"
+    spec:
+      containers:
+        - name: "myfirstkubcluster-2d83"
+          image: "myfirstazuredockerregistry.azurecr.io/myfirstkubcluster"
+          ports:
+          - containerPort: 80

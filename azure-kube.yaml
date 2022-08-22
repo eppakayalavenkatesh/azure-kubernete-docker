@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aksdocker
+  labels:
+    app: aksdockerapp
+spec:
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: aksdockerapp
+  template: 
+    metadata: 
+      labels: 
+        app: aksdockerapp
+    spec: 
+      containers:
+        - name: aksdockerapp
+          imagePullPolicy: Always
+          image: dockercontaineraks.azurecr.io/my-aks-docker:latest
+          ports: 
+            - containerPort: 8082
+
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: aksdocker
+  labels:
+    app: aksdockerapp
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8082
+    targetPort: 8082
+  selector: 
+    app: aksdockerapp
